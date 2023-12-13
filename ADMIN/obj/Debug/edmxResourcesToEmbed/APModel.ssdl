@@ -1,0 +1,387 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище AirplaneModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Age">
+    <Key>
+      <PropertyRef Name="ID_Age" />
+    </Key>
+    <Property Name="ID_Age" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Factor_age" Type="decimal" Precision="3" Scale="2" Nullable="false" />
+    <Property Name="Range" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Airlines">
+    <Key>
+      <PropertyRef Name="ID_Airlines" />
+    </Key>
+    <Property Name="ID_Airlines" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name_airlines" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="LWPP" Type="int" Nullable="false" />
+    <Property Name="Luggage_price" Type="money" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Airplane">
+    <Key>
+      <PropertyRef Name="ID_Airplane" />
+    </Key>
+    <Property Name="ID_Airplane" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Brand_and_number" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Airport">
+    <Key>
+      <PropertyRef Name="ID_Airport" />
+    </Key>
+    <Property Name="ID_Airport" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Airport_name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Country_ID" Type="int" Nullable="false" />
+    <Property Name="Location" Type="varchar" MaxLength="1000" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Class ticket">
+    <Key>
+      <PropertyRef Name="ID_Class" />
+    </Key>
+    <Property Name="ID_Class" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name_class" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="Factor_class" Type="decimal" Precision="3" Scale="1" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Country">
+    <Key>
+      <PropertyRef Name="ID_Country" />
+    </Key>
+    <Property Name="ID_Country" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Country" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Flight">
+    <Key>
+      <PropertyRef Name="ID_Flight" />
+    </Key>
+    <Property Name="ID_Flight" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Depature_date_and_time" Type="datetime" Nullable="false" />
+    <Property Name="Arrival _date_and_time" Type="datetime" Nullable="false" />
+    <Property Name="Flight_price" Type="money" Nullable="false" />
+    <Property Name="Airlines_ID" Type="int" Nullable="false" />
+    <Property Name="Regular_plane_ID" Type="int" Nullable="false" />
+    <Property Name="Depature_location_ID" Type="int" Nullable="false" />
+    <Property Name="Arrival_location_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="History_tickets">
+    <Key>
+      <PropertyRef Name="ID_HT" />
+    </Key>
+    <Property Name="ID_HT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Login" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Flight_ID_HT" Type="int" Nullable="false" />
+    <Property Name="Tickets_ID_HT" Type="int" Nullable="false" />
+    <Property Name="Total_cost" Type="money" Nullable="false" />
+    <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Passenger">
+    <Key>
+      <PropertyRef Name="ID_Passenger" />
+    </Key>
+    <Property Name="ID_Passenger" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Surname" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Patronymic" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Login" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="Balance" Type="money" Nullable="false" />
+    <Property Name="Salt" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="Role_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Regular plane">
+    <Key>
+      <PropertyRef Name="ID_Regular_plane" />
+    </Key>
+    <Property Name="ID_Regular_plane" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Capacity" Type="int" Nullable="false" />
+    <Property Name="Airplane_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="ID_Role" />
+    </Key>
+    <Property Name="ID_Role" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name_role" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tickets">
+    <Key>
+      <PropertyRef Name="ID_Tickets" />
+    </Key>
+    <Property Name="ID_Tickets" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Total_cost" Type="money" Nullable="false" />
+    <Property Name="Passenger_ID" Type="int" Nullable="false" />
+    <Property Name="Flight_ID" Type="int" Nullable="false" />
+    <Property Name="Class_ID" Type="int" Nullable="false" />
+    <Property Name="Age_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Airplane.dbo.BUYER_TICKET" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+  <EntityType Name="BUYER_TICKET">
+    <Key>
+      <PropertyRef Name="Фамилия" />
+      <PropertyRef Name="Имя" />
+      <PropertyRef Name="Время отправки" />
+      <PropertyRef Name="Время прилёта" />
+      <PropertyRef Name="Авиакомпания" />
+      <PropertyRef Name="Место вылета" />
+      <PropertyRef Name="Место прилёта" />
+    </Key>
+    <Property Name="Фамилия" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Имя" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Отчество" Type="varchar" MaxLength="50" />
+    <Property Name="Время отправки" Type="datetime" Nullable="false" />
+    <Property Name="Время прилёта" Type="datetime" Nullable="false" />
+    <Property Name="Авиакомпания" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Место вылета" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Место прилёта" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Airplane.dbo.SCHEDULE" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+  <EntityType Name="SCHEDULE">
+    <Key>
+      <PropertyRef Name="Время отправки" />
+      <PropertyRef Name="Время прилёта" />
+      <PropertyRef Name="Авиакомпания" />
+      <PropertyRef Name="Место вылета" />
+      <PropertyRef Name="Место прилёта" />
+    </Key>
+    <Property Name="Время отправки" Type="datetime" Nullable="false" />
+    <Property Name="Время прилёта" Type="datetime" Nullable="false" />
+    <Property Name="Авиакомпания" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Место вылета" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Место прилёта" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Age">
+    <End Role="Age" Type="Self.Age" Multiplicity="1" />
+    <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Age">
+        <PropertyRef Name="ID_Age" />
+      </Principal>
+      <Dependent Role="Tickets">
+        <PropertyRef Name="Age_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Airlines">
+    <End Role="Airlines" Type="Self.Airlines" Multiplicity="1" />
+    <End Role="Flight" Type="Self.Flight" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Airlines">
+        <PropertyRef Name="ID_Airlines" />
+      </Principal>
+      <Dependent Role="Flight">
+        <PropertyRef Name="Airlines_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Airplane">
+    <End Role="Airplane" Type="Self.Airplane" Multiplicity="1" />
+    <End Role="Regular plane" Type="Self.Regular plane" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Airplane">
+        <PropertyRef Name="ID_Airplane" />
+      </Principal>
+      <Dependent Role="Regular plane">
+        <PropertyRef Name="Airplane_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_arrival_location">
+    <End Role="Airport" Type="Self.Airport" Multiplicity="1" />
+    <End Role="Flight" Type="Self.Flight" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Airport">
+        <PropertyRef Name="ID_Airport" />
+      </Principal>
+      <Dependent Role="Flight">
+        <PropertyRef Name="Arrival_location_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Class">
+    <End Role="Class ticket" Type="Self.Class ticket" Multiplicity="1" />
+    <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Class ticket">
+        <PropertyRef Name="ID_Class" />
+      </Principal>
+      <Dependent Role="Tickets">
+        <PropertyRef Name="Class_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Country">
+    <End Role="Country" Type="Self.Country" Multiplicity="1" />
+    <End Role="Airport" Type="Self.Airport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="ID_Country" />
+      </Principal>
+      <Dependent Role="Airport">
+        <PropertyRef Name="Country_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_depature_location">
+    <End Role="Airport" Type="Self.Airport" Multiplicity="1" />
+    <End Role="Flight" Type="Self.Flight" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Airport">
+        <PropertyRef Name="ID_Airport" />
+      </Principal>
+      <Dependent Role="Flight">
+        <PropertyRef Name="Depature_location_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Flight">
+    <End Role="Flight" Type="Self.Flight" Multiplicity="1" />
+    <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Flight">
+        <PropertyRef Name="ID_Flight" />
+      </Principal>
+      <Dependent Role="Tickets">
+        <PropertyRef Name="Flight_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Passenger">
+    <End Role="Passenger" Type="Self.Passenger" Multiplicity="1" />
+    <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Passenger">
+        <PropertyRef Name="ID_Passenger" />
+      </Principal>
+      <Dependent Role="Tickets">
+        <PropertyRef Name="Passenger_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_regular_palne">
+    <End Role="Regular plane" Type="Self.Regular plane" Multiplicity="1" />
+    <End Role="Flight" Type="Self.Flight" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Regular plane">
+        <PropertyRef Name="ID_Regular_plane" />
+      </Principal>
+      <Dependent Role="Flight">
+        <PropertyRef Name="Regular_plane_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="Passenger" Type="Self.Passenger" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="ID_Role" />
+      </Principal>
+      <Dependent Role="Passenger">
+        <PropertyRef Name="Role_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="BUY_TICKET" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DEPATURE_DT" Type="date" Mode="In" />
+    <Parameter Name="ARRIVAL_DT" Type="date" Mode="In" />
+    <Parameter Name="DEPATURE_NAME" Type="varchar" Mode="In" />
+    <Parameter Name="ARRIVAL_NAME" Type="varchar" Mode="In" />
+    <Parameter Name="NAME_AIRLINES" Type="varchar" Mode="In" />
+    <Parameter Name="CLASS" Type="varchar" Mode="In" />
+    <Parameter Name="LUGGAGE" Type="bit" Mode="In" />
+    <Parameter Name="PASSENGER" Type="int" Mode="In" />
+    <Parameter Name="RANGE" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="DELETE_AGE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="RANGE" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="INSERT_AGE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FACTOR_AGE" Type="decimal" Mode="In" />
+    <Parameter Name="RANGE" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="UPDATE_AGE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID_AGE" Type="int" Mode="In" />
+    <Parameter Name="FACTOR_AGE" Type="decimal" Mode="In" />
+    <Parameter Name="RANGE" Type="varchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="Хранилище AirplaneModelContainer">
+    <EntitySet Name="Age" EntityType="Self.Age" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Airlines" EntityType="Self.Airlines" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Airplane" EntityType="Self.Airplane" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Airport" EntityType="Self.Airport" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Class ticket" EntityType="Self.Class ticket" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Flight" EntityType="Self.Flight" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="History_tickets" EntityType="Self.History_tickets" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Passenger" EntityType="Self.Passenger" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Regular plane" EntityType="Self.Regular plane" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tickets" EntityType="Self.Tickets" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BUYER_TICKET" EntityType="Self.BUYER_TICKET" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [BUYER_TICKET].[Фамилия] AS [Фамилия], 
+    [BUYER_TICKET].[Имя] AS [Имя], 
+    [BUYER_TICKET].[Отчество] AS [Отчество], 
+    [BUYER_TICKET].[Время отправки] AS [Время отправки], 
+    [BUYER_TICKET].[Время прилёта] AS [Время прилёта], 
+    [BUYER_TICKET].[Авиакомпания] AS [Авиакомпания], 
+    [BUYER_TICKET].[Место вылета] AS [Место вылета], 
+    [BUYER_TICKET].[Место прилёта] AS [Место прилёта]
+    FROM [dbo].[BUYER_TICKET] AS [BUYER_TICKET]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="SCHEDULE" EntityType="Self.SCHEDULE" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [SCHEDULE].[Время отправки] AS [Время отправки], 
+    [SCHEDULE].[Время прилёта] AS [Время прилёта], 
+    [SCHEDULE].[Авиакомпания] AS [Авиакомпания], 
+    [SCHEDULE].[Место вылета] AS [Место вылета], 
+    [SCHEDULE].[Место прилёта] AS [Место прилёта]
+    FROM [dbo].[SCHEDULE] AS [SCHEDULE]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Age" Association="Self.FK_Age">
+      <End Role="Age" EntitySet="Age" />
+      <End Role="Tickets" EntitySet="Tickets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Airlines" Association="Self.FK_Airlines">
+      <End Role="Airlines" EntitySet="Airlines" />
+      <End Role="Flight" EntitySet="Flight" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Airplane" Association="Self.FK_Airplane">
+      <End Role="Airplane" EntitySet="Airplane" />
+      <End Role="Regular plane" EntitySet="Regular plane" />
+    </AssociationSet>
+    <AssociationSet Name="FK_arrival_location" Association="Self.FK_arrival_location">
+      <End Role="Airport" EntitySet="Airport" />
+      <End Role="Flight" EntitySet="Flight" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Class" Association="Self.FK_Class">
+      <End Role="Class ticket" EntitySet="Class ticket" />
+      <End Role="Tickets" EntitySet="Tickets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Country" Association="Self.FK_Country">
+      <End Role="Country" EntitySet="Country" />
+      <End Role="Airport" EntitySet="Airport" />
+    </AssociationSet>
+    <AssociationSet Name="FK_depature_location" Association="Self.FK_depature_location">
+      <End Role="Airport" EntitySet="Airport" />
+      <End Role="Flight" EntitySet="Flight" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Flight" Association="Self.FK_Flight">
+      <End Role="Flight" EntitySet="Flight" />
+      <End Role="Tickets" EntitySet="Tickets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Passenger" Association="Self.FK_Passenger">
+      <End Role="Passenger" EntitySet="Passenger" />
+      <End Role="Tickets" EntitySet="Tickets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_regular_palne" Association="Self.FK_regular_palne">
+      <End Role="Regular plane" EntitySet="Regular plane" />
+      <End Role="Flight" EntitySet="Flight" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Role" Association="Self.FK_Role">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="Passenger" EntitySet="Passenger" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

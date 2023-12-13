@@ -1,0 +1,427 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AirplaneModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Age">
+    <Key>
+      <PropertyRef Name="ID_Age" />
+    </Key>
+    <Property Name="ID_Age" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Factor_age" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
+    <Property Name="Range" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Tickets" Relationship="Self.FK_Age" FromRole="Age" ToRole="Tickets" />
+  </EntityType>
+  <EntityType Name="Airline">
+    <Key>
+      <PropertyRef Name="ID_Airlines" />
+    </Key>
+    <Property Name="ID_Airlines" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name_airlines" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LWPP" Type="Int32" Nullable="false" />
+    <Property Name="Luggage_price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <NavigationProperty Name="Flights" Relationship="Self.FK_Airlines" FromRole="Airlines" ToRole="Flight" />
+  </EntityType>
+  <EntityType Name="Airplane">
+    <Key>
+      <PropertyRef Name="ID_Airplane" />
+    </Key>
+    <Property Name="ID_Airplane" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Brand_and_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Regular_plane" Relationship="Self.FK_Airplane" FromRole="Airplane" ToRole="Regular_plane" />
+  </EntityType>
+  <EntityType Name="Airport">
+    <Key>
+      <PropertyRef Name="ID_Airport" />
+    </Key>
+    <Property Name="ID_Airport" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Airport_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Location" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Flights" Relationship="Self.FK_arrival_location" FromRole="Airport" ToRole="Flight" />
+    <NavigationProperty Name="Flights1" Relationship="Self.FK_depature_location" FromRole="Airport" ToRole="Flight" />
+    <Property Name="Country_ID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Country1" Relationship="AirplaneModel.FK_Country" FromRole="Airport" ToRole="Country" />
+  </EntityType>
+  <EntityType Name="Class_ticket">
+    <Key>
+      <PropertyRef Name="ID_Class" />
+    </Key>
+    <Property Name="ID_Class" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name_class" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Factor_class" Type="Decimal" Precision="3" Scale="1" Nullable="false" />
+    <NavigationProperty Name="Tickets" Relationship="Self.FK_Class" FromRole="Class_ticket" ToRole="Tickets" />
+  </EntityType>
+  <EntityType Name="Flight">
+    <Key>
+      <PropertyRef Name="ID_Flight" />
+    </Key>
+    <Property Name="ID_Flight" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Depature_date_and_time" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Arrival__date_and_time" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Flight_price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="Airlines_ID" Type="Int32" Nullable="false" />
+    <Property Name="Regular_plane_ID" Type="Int32" Nullable="false" />
+    <Property Name="Depature_location_ID" Type="Int32" Nullable="false" />
+    <Property Name="Arrival_location_ID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Airline" Relationship="Self.FK_Airlines" FromRole="Flight" ToRole="Airlines" />
+    <NavigationProperty Name="Airport" Relationship="Self.FK_arrival_location" FromRole="Flight" ToRole="Airport" />
+    <NavigationProperty Name="Airport1" Relationship="Self.FK_depature_location" FromRole="Flight" ToRole="Airport" />
+    <NavigationProperty Name="Tickets" Relationship="Self.FK_Flight" FromRole="Flight" ToRole="Tickets" />
+    <NavigationProperty Name="Regular_plane" Relationship="Self.FK_regular_palne" FromRole="Flight" ToRole="Regular_plane" />
+  </EntityType>
+  <EntityType Name="History_tickets">
+    <Key>
+      <PropertyRef Name="ID_HT" />
+    </Key>
+    <Property Name="ID_HT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Login" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Flight_ID_HT" Type="Int32" Nullable="false" />
+    <Property Name="Tickets_ID_HT" Type="Int32" Nullable="false" />
+    <Property Name="Total_cost" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Passenger">
+    <Key>
+      <PropertyRef Name="ID_Passenger" />
+    </Key>
+    <Property Name="ID_Passenger" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Login" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Balance" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="Salt" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Role_ID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Tickets" Relationship="Self.FK_Passenger" FromRole="Passenger" ToRole="Tickets" />
+    <NavigationProperty Name="Role" Relationship="Self.FK_Role" FromRole="Passenger" ToRole="Role" />
+  </EntityType>
+  <EntityType Name="Regular_plane">
+    <Key>
+      <PropertyRef Name="ID_Regular_plane" />
+    </Key>
+    <Property Name="ID_Regular_plane" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Capacity" Type="Int32" Nullable="false" />
+    <Property Name="Airplane_ID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Airplane" Relationship="Self.FK_Airplane" FromRole="Regular_plane" ToRole="Airplane" />
+    <NavigationProperty Name="Flights" Relationship="Self.FK_regular_palne" FromRole="Regular_plane" ToRole="Flight" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="ID_Role" />
+    </Key>
+    <Property Name="ID_Role" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name_role" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Passengers" Relationship="Self.FK_Role" FromRole="Role" ToRole="Passenger" />
+  </EntityType>
+  <EntityType Name="Ticket">
+    <Key>
+      <PropertyRef Name="ID_Tickets" />
+    </Key>
+    <Property Name="ID_Tickets" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Total_cost" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="Passenger_ID" Type="Int32" Nullable="false" />
+    <Property Name="Flight_ID" Type="Int32" Nullable="false" />
+    <Property Name="Class_ID" Type="Int32" Nullable="false" />
+    <Property Name="Age_ID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Age" Relationship="Self.FK_Age" FromRole="Tickets" ToRole="Age" />
+    <NavigationProperty Name="Class_ticket" Relationship="Self.FK_Class" FromRole="Tickets" ToRole="Class_ticket" />
+    <NavigationProperty Name="Flight" Relationship="Self.FK_Flight" FromRole="Tickets" ToRole="Flight" />
+    <NavigationProperty Name="Passenger" Relationship="Self.FK_Passenger" FromRole="Tickets" ToRole="Passenger" />
+  </EntityType>
+  <EntityType Name="BUYER_TICKET">
+    <Key>
+      <PropertyRef Name="Фамилия" />
+      <PropertyRef Name="Имя" />
+      <PropertyRef Name="Время_отправки" />
+      <PropertyRef Name="Время_прилёта" />
+      <PropertyRef Name="Авиакомпания" />
+      <PropertyRef Name="Место_вылета" />
+      <PropertyRef Name="Место_прилёта" />
+    </Key>
+    <Property Name="Фамилия" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Имя" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Отчество" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Время_отправки" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Время_прилёта" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Авиакомпания" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Место_вылета" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Место_прилёта" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SCHEDULE">
+    <Key>
+      <PropertyRef Name="Время_отправки" />
+      <PropertyRef Name="Время_прилёта" />
+      <PropertyRef Name="Авиакомпания" />
+      <PropertyRef Name="Место_вылета" />
+      <PropertyRef Name="Место_прилёта" />
+    </Key>
+    <Property Name="Время_отправки" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Время_прилёта" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Авиакомпания" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Место_вылета" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Место_прилёта" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Age">
+    <End Role="Age" Type="Self.Age" Multiplicity="1" />
+    <End Role="Tickets" Type="Self.Ticket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Age">
+        <PropertyRef Name="ID_Age" />
+      </Principal>
+      <Dependent Role="Tickets">
+        <PropertyRef Name="Age_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Airlines">
+    <End Role="Airlines" Type="Self.Airline" Multiplicity="1" />
+    <End Role="Flight" Type="Self.Flight" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Airlines">
+        <PropertyRef Name="ID_Airlines" />
+      </Principal>
+      <Dependent Role="Flight">
+        <PropertyRef Name="Airlines_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Airplane">
+    <End Role="Airplane" Type="Self.Airplane" Multiplicity="1" />
+    <End Role="Regular_plane" Type="Self.Regular_plane" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Airplane">
+        <PropertyRef Name="ID_Airplane" />
+      </Principal>
+      <Dependent Role="Regular_plane">
+        <PropertyRef Name="Airplane_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_arrival_location">
+    <End Role="Airport" Type="Self.Airport" Multiplicity="1" />
+    <End Role="Flight" Type="Self.Flight" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Airport">
+        <PropertyRef Name="ID_Airport" />
+      </Principal>
+      <Dependent Role="Flight">
+        <PropertyRef Name="Arrival_location_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_depature_location">
+    <End Role="Airport" Type="Self.Airport" Multiplicity="1" />
+    <End Role="Flight" Type="Self.Flight" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Airport">
+        <PropertyRef Name="ID_Airport" />
+      </Principal>
+      <Dependent Role="Flight">
+        <PropertyRef Name="Depature_location_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Class">
+    <End Role="Class_ticket" Type="Self.Class_ticket" Multiplicity="1" />
+    <End Role="Tickets" Type="Self.Ticket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Class_ticket">
+        <PropertyRef Name="ID_Class" />
+      </Principal>
+      <Dependent Role="Tickets">
+        <PropertyRef Name="Class_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Flight">
+    <End Role="Flight" Type="Self.Flight" Multiplicity="1" />
+    <End Role="Tickets" Type="Self.Ticket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Flight">
+        <PropertyRef Name="ID_Flight" />
+      </Principal>
+      <Dependent Role="Tickets">
+        <PropertyRef Name="Flight_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_regular_palne">
+    <End Role="Regular_plane" Type="Self.Regular_plane" Multiplicity="1" />
+    <End Role="Flight" Type="Self.Flight" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Regular_plane">
+        <PropertyRef Name="ID_Regular_plane" />
+      </Principal>
+      <Dependent Role="Flight">
+        <PropertyRef Name="Regular_plane_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Passenger">
+    <End Role="Passenger" Type="Self.Passenger" Multiplicity="1" />
+    <End Role="Tickets" Type="Self.Ticket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Passenger">
+        <PropertyRef Name="ID_Passenger" />
+      </Principal>
+      <Dependent Role="Tickets">
+        <PropertyRef Name="Passenger_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="Passenger" Type="Self.Passenger" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="ID_Role" />
+      </Principal>
+      <Dependent Role="Passenger">
+        <PropertyRef Name="Role_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AirplaneEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Ages" EntityType="Self.Age" />
+    <EntitySet Name="Airlines" EntityType="Self.Airline" />
+    <EntitySet Name="Airplanes" EntityType="Self.Airplane" />
+    <EntitySet Name="Airports" EntityType="Self.Airport" />
+    <EntitySet Name="Class_tickets" EntityType="Self.Class_ticket" />
+    <EntitySet Name="Flights" EntityType="Self.Flight" />
+    <EntitySet Name="History_tickets" EntityType="Self.History_tickets" />
+    <EntitySet Name="Passengers" EntityType="Self.Passenger" />
+    <EntitySet Name="Regular_planes" EntityType="Self.Regular_plane" />
+    <EntitySet Name="Roles" EntityType="Self.Role" />
+    <EntitySet Name="Tickets" EntityType="Self.Ticket" />
+    <EntitySet Name="BUYER_TICKET" EntityType="Self.BUYER_TICKET" />
+    <EntitySet Name="SCHEDULEs" EntityType="Self.SCHEDULE" />
+    <AssociationSet Name="FK_Age" Association="Self.FK_Age">
+      <End Role="Age" EntitySet="Ages" />
+      <End Role="Tickets" EntitySet="Tickets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Airlines" Association="Self.FK_Airlines">
+      <End Role="Airlines" EntitySet="Airlines" />
+      <End Role="Flight" EntitySet="Flights" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Airplane" Association="Self.FK_Airplane">
+      <End Role="Airplane" EntitySet="Airplanes" />
+      <End Role="Regular_plane" EntitySet="Regular_planes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_arrival_location" Association="Self.FK_arrival_location">
+      <End Role="Airport" EntitySet="Airports" />
+      <End Role="Flight" EntitySet="Flights" />
+    </AssociationSet>
+    <AssociationSet Name="FK_depature_location" Association="Self.FK_depature_location">
+      <End Role="Airport" EntitySet="Airports" />
+      <End Role="Flight" EntitySet="Flights" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Class" Association="Self.FK_Class">
+      <End Role="Class_ticket" EntitySet="Class_tickets" />
+      <End Role="Tickets" EntitySet="Tickets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Flight" Association="Self.FK_Flight">
+      <End Role="Flight" EntitySet="Flights" />
+      <End Role="Tickets" EntitySet="Tickets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_regular_palne" Association="Self.FK_regular_palne">
+      <End Role="Regular_plane" EntitySet="Regular_planes" />
+      <End Role="Flight" EntitySet="Flights" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Passenger" Association="Self.FK_Passenger">
+      <End Role="Passenger" EntitySet="Passengers" />
+      <End Role="Tickets" EntitySet="Tickets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Role" Association="Self.FK_Role">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="Passenger" EntitySet="Passengers" />
+    </AssociationSet>
+    <FunctionImport Name="BUY_TICKET">
+      <Parameter Name="DEPATURE_DT" Mode="In" Type="DateTime" />
+      <Parameter Name="ARRIVAL_DT" Mode="In" Type="DateTime" />
+      <Parameter Name="DEPATURE_NAME" Mode="In" Type="String" />
+      <Parameter Name="ARRIVAL_NAME" Mode="In" Type="String" />
+      <Parameter Name="NAME_AIRLINES" Mode="In" Type="String" />
+      <Parameter Name="CLASS" Mode="In" Type="String" />
+      <Parameter Name="LUGGAGE" Mode="In" Type="Boolean" />
+      <Parameter Name="PASSENGER" Mode="In" Type="Int32" />
+      <Parameter Name="RANGE" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="DELETE_AGE">
+      <Parameter Name="RANGE" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="INSERT_AGE">
+      <Parameter Name="FACTOR_AGE" Mode="In" Type="Decimal" />
+      <Parameter Name="RANGE" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(AirplaneModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(AirplaneModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <FunctionImport Name="UPDATE_AGE">
+      <Parameter Name="ID_AGE" Mode="In" Type="Int32" />
+      <Parameter Name="FACTOR_AGE" Mode="In" Type="Decimal" />
+      <Parameter Name="RANGE" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="Countries" EntityType="AirplaneModel.Country" />
+    <AssociationSet Name="FK_Country" Association="AirplaneModel.FK_Country">
+      <End Role="Country" EntitySet="Countries" />
+      <End Role="Airport" EntitySet="Airports" />
+    </AssociationSet>
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="Country">
+    <Key>
+      <PropertyRef Name="ID_Country" />
+    </Key>
+    <Property Name="ID_Country" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Country1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Airports" Relationship="AirplaneModel.FK_Country" FromRole="Country" ToRole="Airport" />
+  </EntityType>
+  <Association Name="FK_Country">
+    <End Type="AirplaneModel.Country" Role="Country" Multiplicity="1" />
+    <End Type="AirplaneModel.Airport" Role="Airport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="ID_Country" />
+      </Principal>
+      <Dependent Role="Airport">
+        <PropertyRef Name="Country_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

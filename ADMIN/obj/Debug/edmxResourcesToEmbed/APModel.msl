@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище AirplaneModelContainer" CdmEntityContainer="AirplaneEntities">
+    <EntitySetMapping Name="Ages">
+      <EntityTypeMapping TypeName="AirplaneModel.Age">
+        <MappingFragment StoreEntitySet="Age">
+          <ScalarProperty Name="ID_Age" ColumnName="ID_Age" />
+          <ScalarProperty Name="Factor_age" ColumnName="Factor_age" />
+          <ScalarProperty Name="Range" ColumnName="Range" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Airlines">
+      <EntityTypeMapping TypeName="AirplaneModel.Airline">
+        <MappingFragment StoreEntitySet="Airlines">
+          <ScalarProperty Name="ID_Airlines" ColumnName="ID_Airlines" />
+          <ScalarProperty Name="Name_airlines" ColumnName="Name_airlines" />
+          <ScalarProperty Name="LWPP" ColumnName="LWPP" />
+          <ScalarProperty Name="Luggage_price" ColumnName="Luggage_price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Airplanes">
+      <EntityTypeMapping TypeName="AirplaneModel.Airplane">
+        <MappingFragment StoreEntitySet="Airplane">
+          <ScalarProperty Name="ID_Airplane" ColumnName="ID_Airplane" />
+          <ScalarProperty Name="Brand_and_number" ColumnName="Brand_and_number" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Airports">
+      <EntityTypeMapping TypeName="AirplaneModel.Airport">
+        <MappingFragment StoreEntitySet="Airport">
+          <ScalarProperty Name="Country_ID" ColumnName="Country_ID" />
+          <ScalarProperty Name="ID_Airport" ColumnName="ID_Airport" />
+          <ScalarProperty Name="Airport_name" ColumnName="Airport_name" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Class_tickets">
+      <EntityTypeMapping TypeName="AirplaneModel.Class_ticket">
+        <MappingFragment StoreEntitySet="Class ticket">
+          <ScalarProperty Name="ID_Class" ColumnName="ID_Class" />
+          <ScalarProperty Name="Name_class" ColumnName="Name_class" />
+          <ScalarProperty Name="Factor_class" ColumnName="Factor_class" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Flights">
+      <EntityTypeMapping TypeName="AirplaneModel.Flight">
+        <MappingFragment StoreEntitySet="Flight">
+          <ScalarProperty Name="ID_Flight" ColumnName="ID_Flight" />
+          <ScalarProperty Name="Depature_date_and_time" ColumnName="Depature_date_and_time" />
+          <ScalarProperty Name="Arrival__date_and_time" ColumnName="Arrival _date_and_time" />
+          <ScalarProperty Name="Flight_price" ColumnName="Flight_price" />
+          <ScalarProperty Name="Airlines_ID" ColumnName="Airlines_ID" />
+          <ScalarProperty Name="Regular_plane_ID" ColumnName="Regular_plane_ID" />
+          <ScalarProperty Name="Depature_location_ID" ColumnName="Depature_location_ID" />
+          <ScalarProperty Name="Arrival_location_ID" ColumnName="Arrival_location_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="History_tickets">
+      <EntityTypeMapping TypeName="AirplaneModel.History_tickets">
+        <MappingFragment StoreEntitySet="History_tickets">
+          <ScalarProperty Name="ID_HT" ColumnName="ID_HT" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Flight_ID_HT" ColumnName="Flight_ID_HT" />
+          <ScalarProperty Name="Tickets_ID_HT" ColumnName="Tickets_ID_HT" />
+          <ScalarProperty Name="Total_cost" ColumnName="Total_cost" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Passengers">
+      <EntityTypeMapping TypeName="AirplaneModel.Passenger">
+        <MappingFragment StoreEntitySet="Passenger">
+          <ScalarProperty Name="ID_Passenger" ColumnName="ID_Passenger" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Balance" ColumnName="Balance" />
+          <ScalarProperty Name="Salt" ColumnName="Salt" />
+          <ScalarProperty Name="Role_ID" ColumnName="Role_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Regular_planes">
+      <EntityTypeMapping TypeName="AirplaneModel.Regular_plane">
+        <MappingFragment StoreEntitySet="Regular plane">
+          <ScalarProperty Name="ID_Regular_plane" ColumnName="ID_Regular_plane" />
+          <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+          <ScalarProperty Name="Airplane_ID" ColumnName="Airplane_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="AirplaneModel.Role">
+        <MappingFragment StoreEntitySet="Role">
+          <ScalarProperty Name="ID_Role" ColumnName="ID_Role" />
+          <ScalarProperty Name="Name_role" ColumnName="Name_role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tickets">
+      <EntityTypeMapping TypeName="AirplaneModel.Ticket">
+        <MappingFragment StoreEntitySet="Tickets">
+          <ScalarProperty Name="ID_Tickets" ColumnName="ID_Tickets" />
+          <ScalarProperty Name="Total_cost" ColumnName="Total_cost" />
+          <ScalarProperty Name="Passenger_ID" ColumnName="Passenger_ID" />
+          <ScalarProperty Name="Flight_ID" ColumnName="Flight_ID" />
+          <ScalarProperty Name="Class_ID" ColumnName="Class_ID" />
+          <ScalarProperty Name="Age_ID" ColumnName="Age_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BUYER_TICKET">
+      <EntityTypeMapping TypeName="AirplaneModel.BUYER_TICKET">
+        <MappingFragment StoreEntitySet="BUYER_TICKET">
+          <ScalarProperty Name="Фамилия" ColumnName="Фамилия" />
+          <ScalarProperty Name="Имя" ColumnName="Имя" />
+          <ScalarProperty Name="Отчество" ColumnName="Отчество" />
+          <ScalarProperty Name="Время_отправки" ColumnName="Время отправки" />
+          <ScalarProperty Name="Время_прилёта" ColumnName="Время прилёта" />
+          <ScalarProperty Name="Авиакомпания" ColumnName="Авиакомпания" />
+          <ScalarProperty Name="Место_вылета" ColumnName="Место вылета" />
+          <ScalarProperty Name="Место_прилёта" ColumnName="Место прилёта" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SCHEDULEs">
+      <EntityTypeMapping TypeName="AirplaneModel.SCHEDULE">
+        <MappingFragment StoreEntitySet="SCHEDULE">
+          <ScalarProperty Name="Время_отправки" ColumnName="Время отправки" />
+          <ScalarProperty Name="Время_прилёта" ColumnName="Время прилёта" />
+          <ScalarProperty Name="Авиакомпания" ColumnName="Авиакомпания" />
+          <ScalarProperty Name="Место_вылета" ColumnName="Место вылета" />
+          <ScalarProperty Name="Место_прилёта" ColumnName="Место прилёта" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="BUY_TICKET" FunctionName="Хранилище AirplaneModel.BUY_TICKET" />
+    <FunctionImportMapping FunctionImportName="DELETE_AGE" FunctionName="Хранилище AirplaneModel.DELETE_AGE" />
+    <FunctionImportMapping FunctionImportName="INSERT_AGE" FunctionName="Хранилище AirplaneModel.INSERT_AGE" />
+    <FunctionImportMapping FunctionImportName="UPDATE_AGE" FunctionName="Хранилище AirplaneModel.UPDATE_AGE" />
+    <EntitySetMapping Name="Countries">
+      <EntityTypeMapping TypeName="AirplaneModel.Country">
+        <MappingFragment StoreEntitySet="Country">
+          <ScalarProperty Name="Country1" ColumnName="Country" />
+          <ScalarProperty Name="ID_Country" ColumnName="ID_Country" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

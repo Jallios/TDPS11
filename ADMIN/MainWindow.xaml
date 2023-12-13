@@ -1,0 +1,647 @@
+﻿<Window x:Class= "ADMIN.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ADMIN" 
+        xmlns:tool="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
+        mc:Ignorable="d"
+        Title="Админ панель" MinHeight="1500" MinWidth="1500"  Background="WhiteSmoke" FontSize="20">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Menu VerticalAlignment="Top" Grid.Row="0" Grid.Column="0">
+            <MenuItem Header="BackUp" x:Name="btnBackUp" Click="btnBackUp_Click"/>
+        </Menu>
+        <TabControl TabStripPlacement="Left" Grid.Row="1">
+            <TabItem Header="Представления">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="300"></RowDefinition>
+                        <RowDefinition Height="20"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <DataGrid x:Name="dtgView" Grid.Column="1" Grid.ColumnSpan="5" IsReadOnly="True" IsVisibleChanged="dtgView_IsVisibleChanged">
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Export" Click="btnExport_Click" />
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+                    
+
+                    <HeaderedContentControl Header="Введите место прилёта"  Grid.Column="1" Grid.Row="2">
+                        <TextBox x:Name="txtSearch"   SpellCheck.IsEnabled="True" Language="ru-ru"/>
+                    </HeaderedContentControl>
+                   
+                    <HeaderedContentControl Header="Отфильтровать по авиакомпании:"  Grid.Column="5" Grid.Row="2">
+                        <ComboBox x:Name="cmbFilterAirlines" DisplayMemberPath="Name_airlines" SelectedValuePath="Name_airlines" Loaded="cmbFilterAirlines_Loaded"/>
+                    </HeaderedContentControl>
+
+
+                    <Button x:Name="btnSearch" Grid.Column="5" Grid.Row="10" Content="Поиск"   Click="btnSearch_Click" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="Роль">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="300"></RowDefinition>
+                        <RowDefinition Height="20"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <DataGrid x:Name="dtgRole" FontSize="18" Grid.Column="1" Grid.ColumnSpan="5" AutoGenerateColumns="False" IsReadOnly="True" IsVisibleChanged="dtgRole_IsVisibleChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Название роли" Binding="{Binding Name_role}"/>
+                        </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Export" Click="btnExport_Click" />
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+
+                    <HeaderedContentControl Header="Название роли"  Grid.Column="1" Grid.Row="2">
+                        <TextBox x:Name="txtRole"  SpellCheck.IsEnabled="True" Language="ru-ru" Text="{Binding SelectedItem.Name_role ,ElementName=dtgRole}"/>
+                    </HeaderedContentControl>
+
+
+                    <Button x:Name="btnRoleSave" Grid.Column="5" Grid.Row="10" Content="Сохранить"   Click="btnRoleSave_Click"/>
+                    <Button x:Name="btnRoleDelete" Grid.Column="5" Grid.Row="12" Content="Удалить"   Background="Red" Click="btnRoleDelete_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Класс билета">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="300"></RowDefinition>
+                        <RowDefinition Height="20"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <DataGrid x:Name="dtgClassTicket" FontSize="18" Grid.Column="1" Grid.ColumnSpan="5" AutoGenerateColumns="False" IsReadOnly="True" IsVisibleChanged="dtgClassTicket_IsVisibleChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Название класса" Binding="{Binding Name_class}"/>
+                            <DataGridTextColumn Header="Коэфицент класса" Binding="{Binding Factor_class}"/>
+                        </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Export" Click="btnExport_Click" />
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+
+                    <HeaderedContentControl Header="Название класса"  Grid.Column="1" Grid.Row="2">
+                        <TextBox x:Name="txtClass"   SpellCheck.IsEnabled="True" Language="ru-ru" Text="{Binding SelectedItem.Name_class ,ElementName=dtgClassTicket}"/>
+                    </HeaderedContentControl>
+                    <HeaderedContentControl Header="Коэфицент класса"  Grid.Column="1" Grid.Row="4">
+                        <TextBox x:Name="txtFactorClass"   SpellCheck.IsEnabled="True" Language="ru-ru" Text="{Binding SelectedItem.Factor_class, StringFormat='#.##', ElementName=dtgClassTicket}"/>
+                    </HeaderedContentControl>
+
+
+                    <Button x:Name="btnClassSave" Grid.Column="5" Grid.Row="10" Content="Сохранить"   Click="btnClassSave_Click"/>
+                    <Button x:Name="btnClassDelete" Grid.Column="5" Grid.Row="12" Content="Удалить"   Background="Red" Click="btnClassDelete_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Возраст">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="300"></RowDefinition>
+                        <RowDefinition Height="20"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <DataGrid x:Name="dtgAge" FontSize="18" Grid.Column="1" Grid.ColumnSpan="5" AutoGenerateColumns="False" IsReadOnly="True" IsVisibleChanged="dtgAge_IsVisibleChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Диапазон" Binding="{Binding Range}"/>
+                            <DataGridTextColumn Header="Коэфицент возраста" Binding="{Binding Factor_age}"/>
+                        </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Export" Click="btnExport_Click" />
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+
+                    <HeaderedContentControl Header="Диапозон"  Grid.Column="1" Grid.Row="2">
+                        <TextBox x:Name="txtRange"   SpellCheck.IsEnabled="True" Language="ru-ru" Text="{Binding SelectedItem.Range ,ElementName=dtgAge}"/>
+                    </HeaderedContentControl>
+                    <HeaderedContentControl Header="Коэфицент возраста"  Grid.Column="1" Grid.Row="4">
+                        <TextBox x:Name="txtFactorAge"   SpellCheck.IsEnabled="True" Language="ru-ru" Text="{Binding SelectedItem.Factor_age ,ElementName=dtgAge}"/>
+                    </HeaderedContentControl>
+
+
+                    <Button x:Name="btnAgeSave" Grid.Column="5" Grid.Row="10" Content="Сохранить"   Click="btnAgeSave_Click"/>
+                    <Button x:Name="btnAgeDelete" Grid.Column="5" Grid.Row="12" Content="Удалить"   Background="Red" Click="btnAgeDelete_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Авиакомпания">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="300"></RowDefinition>
+                        <RowDefinition Height="20"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <DataGrid x:Name="dtgAirlines" FontSize="18" Grid.Column="1" Grid.ColumnSpan="5" AutoGenerateColumns="False" IsReadOnly="True" IsVisibleChanged="dtgAirlines_IsVisibleChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Название авиакомпании" Binding="{Binding Name_airlines}"/>
+                            <DataGridTextColumn Header="Багаж/Человек" Binding="{Binding LWPP}"/>
+                            <DataGridTextColumn Header="Цена" Binding="{Binding Luggage_price}"/>
+                        </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Export" Click="btnExport_Click" />
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+
+                    <HeaderedContentControl Header="Название авиакомпании"  Grid.Column="1" Grid.Row="2">
+                        <TextBox x:Name="txtNameAirlines"   SpellCheck.IsEnabled="True" Language="ru-ru" Text="{Binding SelectedItem.Name_airlines ,ElementName=dtgAirlines}"/>
+                    </HeaderedContentControl>
+                    <HeaderedContentControl Header="Багаж/Человек"  Grid.Column="1" Grid.Row="4">
+                        <TextBox x:Name="txtLWPP"   SpellCheck.IsEnabled="True" Language="ru-ru" Text="{Binding SelectedItem.LWPP ,ElementName=dtgAirlines}"/>
+                    </HeaderedContentControl>
+                    <HeaderedContentControl Header="Цена"  Grid.Column="1" Grid.Row="6">
+                        <TextBox x:Name="txtLuggage_price"   SpellCheck.IsEnabled="True" Language="ru-ru" Text="{Binding SelectedItem.Luggage_price ,ElementName=dtgAirlines}"/>
+                    </HeaderedContentControl>
+
+
+
+                    <Button x:Name="btnAirlinesSave" Grid.Column="5" Grid.Row="10" Content="Сохранить"   Click="btnAirlinesSave_Click"/>
+                    <Button x:Name="btnAirlinesDelete" Grid.Column="5" Grid.Row="12" Content="Удалить"   Background="Red" Click="btnAirlinesDelete_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Страна">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="300"></RowDefinition>
+                        <RowDefinition Height="20"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <DataGrid x:Name="dtgCountry" FontSize="18" Grid.Column="1" Grid.ColumnSpan="5" AutoGenerateColumns="False" IsReadOnly="True" IsVisibleChanged="dtgCountry_IsVisibleChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Страна" Binding="{Binding Country1}"/>
+                        </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Export" Click="btnExport_Click" />
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+
+                    <HeaderedContentControl Header="Название страны"  Grid.Column="1" Grid.Row="2">
+                        <TextBox x:Name="txtCountry"   SpellCheck.IsEnabled="True" Language="ru-ru" Text="{Binding SelectedItem.Country1 ,ElementName=dtgCountry}"/>
+                    </HeaderedContentControl>
+
+
+                    <Button x:Name="btnCountrySave" Grid.Column="5" Grid.Row="10" Content="Сохранить"   Click="btnCountrySave_Click"/>
+                    <Button x:Name="btnCountryDelete" Grid.Column="5" Grid.Row="12" Content="Удалить"   Background="Red" Click="btnCountryDelete_Click"/>
+                </Grid>
+
+            </TabItem>
+            <TabItem Header="Аэропорт">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="300"></RowDefinition>
+                        <RowDefinition Height="20"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <DataGrid x:Name="dtgAirport" FontSize="18" Grid.Column="1" Grid.ColumnSpan="5" AutoGenerateColumns="False" IsReadOnly="True" IsVisibleChanged="dtgAirport_IsVisibleChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Название аэропорта" Binding="{Binding Airport_name}"/>
+                            <DataGridTextColumn Header="Страна" Binding="{Binding Country1.Country1}"/>
+                            <DataGridTextColumn Header="Адрес" Binding="{Binding Location}"/>
+                        </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Export" Click="btnExport_Click" />
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+
+                    <HeaderedContentControl Header="Название аэропорта"  Grid.Column="1" Grid.Row="2">
+                        <TextBox x:Name="txtNameAirport"   SpellCheck.IsEnabled="True" Language="ru-ru" Text="{Binding SelectedItem.Airport_name ,ElementName=dtgAirport}"/>
+                    </HeaderedContentControl>
+                    <HeaderedContentControl Header="Страна"  Grid.Column="1" Grid.Row="4">
+                        <ComboBox x:Name="cmbCountry"   Language="ru-ru" Text="{Binding SelectedItem.Country1.Country1 ,ElementName=dtgAirport}" DisplayMemberPath="Country1" SelectedValuePath="ID_Country" Loaded="cmbCountry_Loaded"/>
+                    </HeaderedContentControl>
+                    <HeaderedContentControl Header="Адрес"  Grid.Column="1" Grid.Row="6">
+                        <TextBox x:Name="txtLocation"   SpellCheck.IsEnabled="True" Language="ru-ru" Text="{Binding SelectedItem.Location ,ElementName=dtgAirport}"/>
+                    </HeaderedContentControl>
+
+
+
+                    <Button x:Name="btnAirportSave" Grid.Column="5" Grid.Row="10" Content="Сохранить"   Click="btnAirportSave_Click"/>
+                    <Button x:Name="btnAirportDelete" Grid.Column="5" Grid.Row="12" Content="Удалить"   Background="Red" Click="btnAirportDelete_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Рейс">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="300"></RowDefinition>
+                        <RowDefinition Height="20"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <DataGrid x:Name="dtgFlight" FontSize="18" Grid.Column="1" Grid.ColumnSpan="5" AutoGenerateColumns="False" IsReadOnly="True" IsVisibleChanged="dtgFlight_IsVisibleChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Дата и время вылета" Binding="{Binding Depature_date_and_time}"/>
+                            <DataGridTextColumn Header="Дата и время прилёта" Binding="{Binding Arrival__date_and_time}"/>
+                            <DataGridTextColumn Header="Цена" Binding="{Binding Flight_price}"/>
+                            <DataGridTextColumn Header="Авиакомпания" Binding="{Binding Airline.Name_airlines}"/>
+                            <DataGridTextColumn Header="Свободные места" Binding="{Binding Regular_plane.Capacity}"/>
+                            <DataGridTextColumn Header="Самолёт" Binding="{Binding Regular_plane.Airplane.Brand_and_number}"/>
+                            <DataGridTextColumn Header="Аэропорт отбытия" Binding="{Binding Airport.Airport_name}"/>
+                            <DataGridTextColumn Header="Аэропорт прибытия" Binding="{Binding Airport1.Airport_name}"/>
+                        </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Export" Click="btnExport_Click" />
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+
+                    <HeaderedContentControl Header="Дата и время вылета"  Grid.Column="1" Grid.Row="2">
+                        <tool:DateTimePicker x:Name="dtpDepatureDateandTime"   Language="ru-ru" Text="{Binding SelectedItem.Depature_date_and_time ,ElementName=dtgFlight}"/>
+                    </HeaderedContentControl>
+                    <HeaderedContentControl Header="Дата и время прилёта"  Grid.Column="1" Grid.Row="4">
+                        <tool:DateTimePicker x:Name="dtpArrivalDateandTime"   Language="ru-ru" Text="{Binding SelectedItem.Arrival__date_and_time ,ElementName=dtgFlight}"/>
+                    </HeaderedContentControl>
+                    <HeaderedContentControl Header="Цена рейса"  Grid.Column="1" Grid.Row="6">
+                        <TextBox x:Name="txtFlightPrice"   SpellCheck.IsEnabled="True" Language="ru-ru" Text="{Binding SelectedItem.Flight_price ,ElementName=dtgFlight}"/>
+                    </HeaderedContentControl>
+                    <HeaderedContentControl Header="Авиакомпания"  Grid.Column="1" Grid.Row="8">
+                        <ComboBox x:Name="cmbNameAirlines"   Text="{Binding SelectedItem.Airline.Name_airlines ,ElementName=dtgFlight}" DisplayMemberPath="Name_airlines" SelectedValuePath="ID_Airlines" Loaded="cmbNameAirlines_Loaded"/>
+                    </HeaderedContentControl>
+                    <HeaderedContentControl Header="Вместимость"  Grid.Column="1" Grid.Row="10">
+                        <ComboBox x:Name="cmbRegularPlane"   Text="{Binding SelectedItem.Regular_plane.Capacity ,ElementName=dtgFlight}" DisplayMemberPath="Capacity" SelectedValuePath="ID_Regular_plane" Loaded="cmbRegularPlane_Loaded"/>
+                    </HeaderedContentControl>
+                    <HeaderedContentControl Header="Аэропорт отбытия"  Grid.Column="3" Grid.Row="2">
+                        <ComboBox x:Name="cmbAirport"   Text="{Binding SelectedItem.Airport.Airport_name ,ElementName=dtgFlight}" DisplayMemberPath="Airport_name" SelectedValuePath="ID_Airport" Loaded="cmbAirport_Loaded"/>
+                    </HeaderedContentControl>
+                    <HeaderedContentControl Header="Аэропорт прибытия"  Grid.Column="3" Grid.Row="4">
+                        <ComboBox x:Name="cmbAirport1"   Text="{Binding SelectedItem.Airport1.Airport_name ,ElementName=dtgFlight}" DisplayMemberPath="Airport_name" SelectedValuePath="ID_Airport" Loaded="cmbAirport1_Loaded"/>
+                    </HeaderedContentControl>
+
+
+                    <Button x:Name="btnFlightSave" Grid.Column="5" Grid.Row="10" Content="Сохранить"   Click="btnFlightSave_Click"/>
+                    <Button x:Name="btnFlightDelete" Grid.Column="5" Grid.Row="12" Content="Удалить"   Background="Red" Click="btnFlightDelete_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Самолёт">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="300"></RowDefinition>
+                        <RowDefinition Height="20"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <DataGrid x:Name="dtgRegularPlane" FontSize="18" Grid.Column="1" Grid.ColumnSpan="5" AutoGenerateColumns="False" IsReadOnly="True" IsVisibleChanged="dtgRegularPlane_IsVisibleChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Вместимость" Binding="{Binding Capacity}"/>
+                            <DataGridTextColumn Header="Номер/название" Binding="{Binding Airplane.Brand_and_number}"/>
+                        </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Export" Click="btnExport_Click" />
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+
+                    <HeaderedContentControl Header="Вместимость"  Grid.Column="1" Grid.Row="2">
+                        <TextBox x:Name="txtCapacity"   SpellCheck.IsEnabled="True" Language="ru-ru" Text="{Binding SelectedItem.Capacity ,ElementName=dtgRegularPlane}"/>
+                    </HeaderedContentControl>
+
+                    <HeaderedContentControl Header="Номер/название"  Grid.Column="1" Grid.Row="4">
+                        <ComboBox x:Name="cmbAirplane"   Text="{Binding SelectedItem.Airplane.Brand_and_number ,ElementName=dtgRegularPlane}" DisplayMemberPath="Brand_and_number" SelectedValuePath="ID_Airplane" Loaded="cmbAirplane_Loaded"/>
+                    </HeaderedContentControl>
+
+
+                    <Button x:Name="btnRegularPlaneSave" Grid.Column="5" Grid.Row="10" Content="Сохранить"   Click="btnRegularPlaneSave_Click"/>
+                    <Button x:Name="btnRegularDelete" Grid.Column="5" Grid.Row="12" Content="Удалить"   Background="Red" Click="btnRegularDelete_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Рейсовый самолёт">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="300"></RowDefinition>
+                        <RowDefinition Height="20"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="65"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <DataGrid x:Name="dtgAirplane" FontSize="18" Grid.Column="1" Grid.ColumnSpan="5" AutoGenerateColumns="False" IsReadOnly="True" IsVisibleChanged="dtgAirplane_IsVisibleChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Номер/название" Binding="{Binding Brand_and_number}"/>
+                        </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Export" Click="btnExport_Click" />
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+
+                    <HeaderedContentControl Header="Номер/название"  Grid.Column="1" Grid.Row="2">
+                        <TextBox x:Name="txtBrandandNumber"   SpellCheck.IsEnabled="True" Language="ru-ru" Text="{Binding SelectedItem.Brand_and_number ,ElementName=dtgAirplane}"/>
+                    </HeaderedContentControl>
+
+
+                    <Button x:Name="btnAirplaneSave" Grid.Column="5" Grid.Row="10" Content="Сохранить"   Click="btnAirplaneSave_Click"/>
+                    <Button x:Name="btnAirplaneDelete" Grid.Column="5" Grid.Row="12" Content="Удалить"   Background="Red" Click="btnAirplaneDelete_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Анализ">
+                <TabControl>
+                    <TabItem Header="История билетов">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="300"></RowDefinition>
+                                <RowDefinition Height="20"></RowDefinition>
+                                <RowDefinition Height="65"></RowDefinition>
+                                <RowDefinition Height="10"></RowDefinition>
+                                <RowDefinition Height="65"></RowDefinition>
+                                <RowDefinition Height="10"></RowDefinition>
+                                <RowDefinition Height="65"></RowDefinition>
+                                <RowDefinition Height="10"></RowDefinition>
+                                <RowDefinition Height="65"></RowDefinition>
+                                <RowDefinition Height="10"></RowDefinition>
+                                <RowDefinition Height="65"></RowDefinition>
+                                <RowDefinition Height="10"></RowDefinition>
+                                <RowDefinition Height="65"></RowDefinition>
+                                <RowDefinition Height="10"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <DataGrid x:Name="dtgHistory" FontSize="18" Grid.Column="1" Grid.ColumnSpan="5" AutoGenerateColumns="False" IsReadOnly="True" IsVisibleChanged="dtgHistory_IsVisibleChanged">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Логин пассажира" Binding="{Binding Login}"/>
+                                    <DataGridTextColumn Header="Номер рейса" Binding="{Binding Flight_ID_HT}"/>
+                                    <DataGridTextColumn Header="Номер билета" Binding="{Binding Tickets_ID_HT}"/>
+                                    <DataGridTextColumn Header="Цена" Binding="{Binding Total_cost}"/>
+                                    <DataGridTextColumn Header="Статус" Binding="{Binding Status}"/>
+                                </DataGrid.Columns>
+                                <DataGrid.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Export" Click="btnExport_Click" />
+                                    </ContextMenu>
+                                </DataGrid.ContextMenu>
+                            </DataGrid>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Статистика">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="300"></RowDefinition>
+                                <RowDefinition Height="20"></RowDefinition>
+                                <RowDefinition Height="65"></RowDefinition>
+                                <RowDefinition Height="10"></RowDefinition>
+                                <RowDefinition Height="65"></RowDefinition>
+                                <RowDefinition Height="10"></RowDefinition>
+                                <RowDefinition Height="65"></RowDefinition>
+                                <RowDefinition Height="10"></RowDefinition>
+                                <RowDefinition Height="65"></RowDefinition>
+                                <RowDefinition Height="10"></RowDefinition>
+                                <RowDefinition Height="65"></RowDefinition>
+                                <RowDefinition Height="10"></RowDefinition>
+                                <RowDefinition Height="65"></RowDefinition>
+                                <RowDefinition Height="10"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <lvc:PieChart x:Name="Pie" Grid.Column="1" Grid.ColumnSpan="5" Grid.RowSpan="9" LegendPosition="Bottom">
+                                <lvc:PieChart.ContextMenu >
+                                 
+                                    <ContextMenu>
+                                        <MenuItem Header="Авиалинии" Click="MenuItem_Click" />
+                                    </ContextMenu>
+                                </lvc:PieChart.ContextMenu>
+                            </lvc:PieChart>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
